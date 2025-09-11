@@ -24,6 +24,10 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
+      - name: Configure git for PAT
+        run: |
+          git config --global url."https://${{ secrets.ACTIONS_PAT }}@github.com/".insteadOf "https://github.com/"
+
       - name: Run Agent
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
