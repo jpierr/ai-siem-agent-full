@@ -3,9 +3,9 @@ tasks:
   - id: RULE-001
     title: "Implement failed SSH burst detection"
     acceptance:
-      - Rule defined in rules/failed_ssh.yaml
-      - Add evaluate_failed_ssh() in siem/rules/engine.py
-      - pytest verifies 5 fails in <1 min triggers alert
+      - "Rule defined in rules/failed_ssh.yaml"
+      - "Add evaluate_failed_ssh() in siem/rules/engine.py"
+      - "pytest verifies 5 fails in <1 min triggers alert"
     files_touched:
       - "rules/failed_ssh.yaml"
       - "siem/rules/engine.py"
@@ -14,9 +14,9 @@ tasks:
   - id: CLI-001
     title: "Add CLI entrypoint"
     acceptance:
-      - `python -m siem.cli` should accept `--input` and `--output`
-      - Handles JSON logs
-      - pytest confirms CLI writes alerts
+      - "python -m siem.cli should accept --input and --output"
+      - "Handles JSON logs"
+      - "pytest confirms CLI writes alerts"
     files_touched:
       - "siem/cli.py"
       - "tests/test_cli.py"
