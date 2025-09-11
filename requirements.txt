@@ -2,3 +2,4 @@ pytest
 black
 pyyaml
 requests
+PyGithub
