@@ -38,8 +38,8 @@ def main():
         branch = f"agent/{task['id']}"
         print(f"🔨 Processing {task['id']} → creating branch {branch}")
 
-        # Create branch
-        run(f"git checkout -b {branch}")
+        # Create or reset branch
+        run(f"git checkout -B {branch}")
 
         # Stub file changes
         for fpath in task["files_touched"]:
@@ -51,7 +51,7 @@ def main():
 
         # Commit + push
         run(f'git commit -m "agent: stub {task["id"]}" || echo "No changes"')
-        run(f"git push origin {branch}")
+        run(f"git push origin {branch} --force")
 
         # Create PR
         pr_title = f"Agent Task {task['id']}: {task['title']}"
