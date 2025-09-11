@@ -1,13 +1,16 @@
 name: Agent PR (manual)
 
 on:
-  workflow_dispatch:   # manual trigger in Actions tab
+  workflow_dispatch:
 
 jobs:
   run-agent:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repo with PAT
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.ACTIONS_PAT }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -24,9 +27,12 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Configure git for PAT
+      - name: Configure git remote with PAT
+        env:
+          GH_PAT: ${{ secrets.ACTIONS_PAT }}
         run: |
-          git config --global url."https://${{ secrets.ACTIONS_PAT }}@github.com/".insteadOf "https://github.com/"
+          git remote set-url origin https://x-access-token:${GH_PAT}@github.com/${{ github.repository }}.git
+          git remote -v
 
       - name: Run Agent
         env:
